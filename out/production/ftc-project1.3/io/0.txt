@@ -1,0 +1,19 @@
+[CoffeeShop]
+Name: EspWow
+BasePrice: 2.0
+
+[OptionSet:Size]
+Option: Small, 0.0
+Option: Medium, 1.2
+Option: Large, 1.8h
+
+[OptionSet:Sugar]
+Option: None, 0.0
+Option: 1 Sugar, 0.5
+Option: 2 Sugars, 1.0
+
+[OptionSet:Extra]
+Option: None, 0.0
+Option: Milk, 0.5
+Option: Cream, 0.5
+Option: Soy, 0.5

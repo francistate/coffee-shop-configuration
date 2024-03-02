@@ -1,0 +1,19 @@
+[CoffeeShop]
+Name: Coffee Delight
+BasePrice: 5.0
+
+[OptionSet:Size]
+Option: Small, 0.0
+Option: Medium, 1.2
+Option: Large, 1.8k
+
+[OptionSet:Sugar]
+Option: None, 0.0
+Option: 1 Sugar, 0.5
+Option: 2 Sugars, 1.0
+
+[OptionSet:Milk]
+Option: None, 0.0
+Option: Full Cream, 0.5
+Option: Almond, 1.0
+

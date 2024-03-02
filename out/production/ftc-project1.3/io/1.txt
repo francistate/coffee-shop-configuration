@@ -1,0 +1,19 @@
+[CoffeeShop]
+Name: SomeShop
+BasePrice: 1.50
+
+[OptionSet:Size]
+Option: Small, 0.00
+Option: Medium, 1.50
+Option: Large, 2.50
+
+[OptionSet:Sugar]
+Option: None, 0.00
+Option: 1, 0.30
+Option: 2, 0.59
+
+[OptionSet:Milk]
+Option: Full Cream, 0.50
+Option: Soy, 0.55
+Option: Almond, 0.60
+Option: Skim, 0.45
