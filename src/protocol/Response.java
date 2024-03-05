@@ -1,23 +1,31 @@
 package protocol;
 
-import java.util.Properties;
+import java.io.Serializable;
 
-public class Response {
+public class Response implements Serializable {
     private ResponseType responseType;
+    private Object responseData;
+    private String errorMessage;
 
-    private Properties properties;
-
-    public Response(ResponseType responseType) {
+    public Response(ResponseType responseType, Object responseData) {
         this.responseType = responseType;
-        this.properties = new Properties();
+        this.responseData = responseData;
+    }
 
+    public Response(ResponseType responseType, String errorMessage) {
+        this.responseType = responseType;
+        this.errorMessage = errorMessage;
     }
 
     public ResponseType getResponseType() {
         return responseType;
     }
 
-    public Properties getProperties() {
-        return properties;
+    public Object getResponseData() {
+        return responseData;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

@@ -6,11 +6,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.StringTokenizer;
 
 public class CoffeeShopConfigBuilder {
 
-    public static CoffeeConfig buildCoffeeConfig(String fileName) {
+    public static CoffeeConfig buildCoffeeConfigFromTxt(String fileName) {
         String filename = "./src/io/" + fileName;
         String defaultFilename = "./src/io/defaultconfig.txt";
         CoffeeConfig coffeeConfig = new CoffeeConfig();
@@ -46,6 +47,8 @@ public class CoffeeShopConfigBuilder {
                         coffeeConfig.createOptionSet(currentOptionSetName);
                     } else if (!line.isEmpty() && currentOptionSetName != null) {
                         // Option section
+                        line = line.trim();
+                        line = line.substring(line.indexOf(":")+1).trim();
                         StringTokenizer tokenizer = new StringTokenizer(line, ",");
                         optionName = tokenizer.nextToken().trim();
                         try {
@@ -82,6 +85,29 @@ public class CoffeeShopConfigBuilder {
     }
 
 
+    public static Properties parsePropertiesFile(String filepath) {
+//        String filepath = "./src/io/";
+        Properties properties = new Properties();
+        String backup_file = "D:\\Eclipse-Workspace\\ftc-project1.3\\src\\io\\config.properties";
+
+        try (FileReader fileReader = new FileReader(filepath)) {
+            properties.load(fileReader);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading file...reading backup file: " + backup_file);
+            try (FileReader fileReader = new FileReader(backup_file)) {
+                properties.load(fileReader);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("Error reading backup file...exiting");
+                System.exit(1);
+            }
+//            properties = null;
+        } finally {
+
+        }
+        return properties;
+    }
 
 }
 

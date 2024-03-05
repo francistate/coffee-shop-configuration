@@ -14,5 +14,5 @@ public interface CoffeeShopClient {
 
     void updateBasePrice(String coffeeShopName, double newPrice);
 
-    void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName);
+    void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName, double newPrice);
 }

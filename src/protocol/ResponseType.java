@@ -1,6 +1,6 @@
 package protocol;
 
-public enum ResponseType implements java.io.Serializable{
-
-
+public enum ResponseType {
+    SUCCESS,
+    FAILURE
 }

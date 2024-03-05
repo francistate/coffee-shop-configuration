@@ -9,4 +9,6 @@ public interface UpdateCoffeeShop {
     void updateOptionPrice(String coffeeShopName, String optionSetName,
                                 String optionName, double newPrice);
 
+    void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName, double newPrice);
+
 }

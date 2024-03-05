@@ -1,9 +1,6 @@
 package wrapper;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import exception.CoffeeShopException;
 import exception.CoffeeShopExceptionFactory;
@@ -64,7 +61,7 @@ public abstract class ProxyCoffeeShops {
 
     public synchronized void configureCoffeeShop(String filename) {
         try {
-            CoffeeConfig coffeeConfig = CoffeeShopConfigBuilder.buildCoffeeConfig(filename);
+            CoffeeConfig coffeeConfig = CoffeeShopConfigBuilder.buildCoffeeConfigFromTxt(filename);
             if (coffeeConfig == null) {
                 throw CoffeeShopExceptionFactory.createException("Coffee shop not found");
             }
@@ -81,6 +78,20 @@ public abstract class ProxyCoffeeShops {
 
     }
 
+
+    public synchronized void configureCoffeeShopFromProperties(Properties properties) {
+        try {
+            CoffeeConfig coffeeConfig = buildCoffeeConfigFromProperties(properties);
+            if (coffeeConfig == null) {
+                throw CoffeeShopExceptionFactory.createException("Coffee shop not found");
+            }
+            createCoffeeShop(coffeeConfig.getName(), coffeeConfig);
+//            printCoffeeShop(coffeeConfig.getName());
+        } catch (CoffeeShopException ex) {
+            ex.handleException();
+        } finally {
+        }
+    }
 
     public synchronized void printCoffeeShop(String coffeeShopName) {
 
@@ -234,6 +245,53 @@ public abstract class ProxyCoffeeShops {
         } finally {
 
                 ;
+        }
+    }
+
+    public synchronized CoffeeConfig buildCoffeeConfigFromProperties(Properties properties) {
+        CoffeeConfig coffeeConfig = new CoffeeConfig();
+
+        // Extract coffee shop name and base price
+        String name = properties.getProperty("Name");
+        double basePrice = Double.parseDouble(properties.getProperty("BasePrice"));
+        coffeeConfig.setName(name);
+        coffeeConfig.setBasePrice(basePrice);
+
+        // Extract and create option sets and options in the desired sequence
+        int optionSetIndex = 1;
+        while (properties.containsKey("OptionSet" + optionSetIndex + ".Name")) {
+            String optionSetName = properties.getProperty("OptionSet" + optionSetIndex + ".Name");
+            coffeeConfig.createOptionSet(optionSetName);
+
+            int optionIndex = 1;
+            while (properties.containsKey("OptionSet" + optionSetIndex + ".Option" + optionIndex + ".Name")) {
+                String optionName = properties.getProperty("OptionSet" + optionSetIndex + ".Option" + optionIndex + ".Name");
+                double price = Double.parseDouble(properties.getProperty("OptionSet" + optionSetIndex + ".Option" + optionIndex + ".Price"));
+                coffeeConfig.createOption(optionSetName, optionName, price);
+                optionIndex++;
+            }
+
+            optionSetIndex++;
+        }
+
+        return coffeeConfig;
+    }
+
+    public synchronized void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName, double price) {
+        try {
+            if (configs.containsKey(coffeeShopName)) {
+                CoffeeConfig coffeeConfig = configs.get(coffeeShopName);
+                if (!coffeeConfig.hasOptionSet(optionSetName)) {
+                    throw CoffeeShopExceptionFactory.createException("OptionSet not found");
+                }
+                coffeeConfig.createOption(optionSetName, newOptionName, price);
+            } else {
+                throw CoffeeShopExceptionFactory.createException("Coffee shop not found");
+            }
+        } catch (CoffeeShopException ex) {
+            ex.handleException();
+        } finally {
+
         }
     }
 }

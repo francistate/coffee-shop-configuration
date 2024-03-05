@@ -178,18 +178,18 @@ public class CoffeeConfig implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Name: ").append(name).append("\n");
+        sb.append("Shop Name: ").append(name).append("\n");
         sb.append("Base Price: ").append(basePrice).append("\n");
         for (OptionSet optionSet : options) {
             if (optionSet != null) {
-                sb.append(optionSet);
+                sb.append(optionSet.toString());
             }
         }
         return sb.toString();
     }
 
     public void print() {
-        System.out.println(this);
+        System.out.println(this.toString());
     }
 
 

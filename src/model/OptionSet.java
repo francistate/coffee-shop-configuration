@@ -51,9 +51,12 @@ class OptionSet implements java.io.Serializable {
 
         @Override
         public String toString() {
-            return name + ", Price: " + price;
+            return "Option: " + this.getName()+ ", Price: " + this.price;
         }
 
+        public void print() {
+            System.out.println(this);
+        }
     }
 
     // create and add an option to the option set
