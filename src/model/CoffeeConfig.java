@@ -1,6 +1,7 @@
 package model;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class CoffeeConfig implements Serializable {
     
@@ -231,6 +232,42 @@ public class CoffeeConfig implements Serializable {
         return false;
     }
 
+    public synchronized Properties getCoffeeShopProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("name", name);
+        properties.setProperty("basePrice", String.valueOf(basePrice));
+
+        int optionSetIndex = 1;
+        for (OptionSet optionSet : options) {
+               if (optionSet != null) {
+                 properties.setProperty("optionSet" + optionSetIndex, optionSet.getName());
+                 int optionIndex = 1;
+                 for (OptionSet.Option option : optionSet.getChoices()) {
+                      if (option != null) {
+                            properties.setProperty("option" + optionIndex, option.getName());
+                            properties.setProperty("price" + optionIndex, String.valueOf(option.getPrice()));
+                            optionIndex++;
+                      }
+                 }
+                 optionSetIndex++;
+                }
+        }
+        return properties;
+    }
+
+    public synchronized String[] getOptionSetNames() {
+        String[] optionSetNames = new String[options.size()];
+        int i = 0;
+        for(OptionSet optionSet : options) {
+
+            if (optionSet != null) {
+                optionSetNames[i] = optionSet.getName();
+                i++;
+            }
+        }
+
+        return optionSetNames;
+    }
 
 
 

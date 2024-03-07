@@ -55,4 +55,16 @@ public class TestClient implements CoffeeShopClient {
     public void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName, double newPrice) {
         api.addOptionToOptionSet(coffeeShopName, optionSetName, newOptionName, newPrice);
     }
+
+    public String[] getAllCoffeeShopNames() {
+        return api.getAllCoffeeShopNames();
+    }
+
+    public String getCoffeeShop(String coffeeShopName) {
+        return api.getCoffeeShop(coffeeShopName);
+    }
+
+    public String[] getOptionSetNames(String coffeeShopName) {
+        return api.getOptionSetNames(coffeeShopName);
+    }
 }

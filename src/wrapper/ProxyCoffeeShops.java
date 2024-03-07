@@ -189,6 +189,7 @@ public abstract class ProxyCoffeeShops {
     }
 
     public synchronized void printAllCoffeeShops() {
+        int count = 0;
         try {
             if (configs.isEmpty()) {
                 throw CoffeeShopExceptionFactory.createException("No coffee shops found");
@@ -197,12 +198,13 @@ public abstract class ProxyCoffeeShops {
 
             Iterator<Map.Entry<String, CoffeeConfig>> iterator = configs.entrySet().iterator();
             while (iterator.hasNext()) {
+                count += 1;
                 Map.Entry<String, CoffeeConfig> entry = iterator.next();
                 String coffeeShopName = entry.getKey();
-                CoffeeConfig coffeeConfig = entry.getValue();
+//                CoffeeConfig coffeeConfig = entry.getValue();
 
-                System.out.println("Coffee Shop Name: " + coffeeShopName);
-                coffeeConfig.print();
+                System.out.println("  "+count + ": " +coffeeShopName);
+//                coffeeConfig.print();
             }
 
         } catch (CoffeeShopException ex) {
@@ -294,4 +296,32 @@ public abstract class ProxyCoffeeShops {
 
         }
     }
+
+    public synchronized String[] getAllCoffeeShopNames() {
+        String[] coffeeShopNames = new String[configs.size()];
+        int index = 0;
+        for (String coffeeShopName : configs.keySet()) {
+            coffeeShopNames[index] = coffeeShopName;
+            index++;
+        }
+        return coffeeShopNames;
+    }
+
+    public synchronized String getCoffeeShop(String coffeeShopName){
+        if (configs.containsKey(coffeeShopName)) {
+            return configs.get(coffeeShopName).toString();
+
+        }
+       return null;
+    }
+
+    public synchronized String[] getOptionSetNames(String coffeeShopName){
+        if (configs.containsKey(coffeeShopName)) {
+            CoffeeConfig config = configs.get(coffeeShopName);
+//            System.out.println("OptionSetNames: " + config.getOptionSetNames());
+            return config.getOptionSetNames();
+        }
+        return null;
+    }
+
 }
