@@ -1,7 +1,6 @@
 package ui;
 
 import client.TestClient;
-import wrapper.CoffeeShopConfigAPI;
 
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ public class CharacterBasedUI {
         Scanner scanner = new Scanner(System.in);
         while (true) {
 
-            // Display menu options
+            // display menu options
             System.out.println("1. Upload a Properties file");
             System.out.println("2. Show available Coffee Configurations");
             System.out.println("3. Print a Coffee Shop");
@@ -27,7 +26,7 @@ public class CharacterBasedUI {
 
             int userChoice;
 
-            // Prompt user for input and handle exceptions
+            // prompt user for input and handle exceptions
             String coffeeShopName;
             double newPrice;
             String optionSetName;
@@ -37,8 +36,8 @@ public class CharacterBasedUI {
             switch (userChoice) {
                 case 1:
                     System.out.print("Enter the name+extension of the properties file: ");
-//                    String filePath = scanner.next();
-                    String filePath = "C:\\Users\\Tatenda\\Desktop\\config.properties";
+                    String filePath = scanner.next();
+//                    String filePath = "C:\\Users\\Tatenda\\Desktop\\config.properties";
                     testClient.uploadPropertiesFile(filePath);
                     System.out.println("======================================================");
                     break;

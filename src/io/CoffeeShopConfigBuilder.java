@@ -11,7 +11,11 @@ import java.util.StringTokenizer;
 
 public class CoffeeShopConfigBuilder {
 
-    public static CoffeeConfig buildCoffeeConfigFromTxt(String fileName) {
+    public CoffeeShopConfigBuilder() {
+        ;
+    }
+
+    public CoffeeConfig buildCoffeeConfigFromTxt(String fileName) {
         String filename = "./src/io/" + fileName;
         String defaultFilename = "./src/io/defaultconfig.txt";
         CoffeeConfig coffeeConfig = new CoffeeConfig();
@@ -85,7 +89,7 @@ public class CoffeeShopConfigBuilder {
     }
 
 
-    public static Properties parsePropertiesFile(String filepath) {
+    public Properties parsePropertiesFile(String filepath) {
 //        String filepath = "./src/io/";
         Properties properties = new Properties();
         String backup_file = "D:\\Eclipse-Workspace\\ftc-project1.3\\src\\io\\config.properties";

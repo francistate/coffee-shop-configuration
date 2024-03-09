@@ -60,8 +60,9 @@ public abstract class ProxyCoffeeShops {
 
 
     public synchronized void configureCoffeeShop(String filename) {
+        CoffeeShopConfigBuilder builder = new CoffeeShopConfigBuilder();
         try {
-            CoffeeConfig coffeeConfig = CoffeeShopConfigBuilder.buildCoffeeConfigFromTxt(filename);
+            CoffeeConfig coffeeConfig = builder.buildCoffeeConfigFromTxt(filename);
             if (coffeeConfig == null) {
                 throw CoffeeShopExceptionFactory.createException("Coffee shop not found");
             }

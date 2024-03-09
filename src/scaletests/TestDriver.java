@@ -13,12 +13,13 @@ public class TestDriver {
     public static void main(String[] args) {
 
         CoffeeShopConfigAPI api = new CoffeeShopConfigAPI();
+        CoffeeShopConfigBuilder builder = new CoffeeShopConfigBuilder();
 
 
         // configure the coffee shops
 //        api.configureCoffeeShop("9.txt");
 //        api.configureCoffeeShop("1.txt");
-        Properties properties = CoffeeShopConfigBuilder.parsePropertiesFile("config.properties");
+        Properties properties = builder.parsePropertiesFile("config.properties");
         api.configureCoffeeShopFromProperties(properties);
         api.printAllCoffeeShops();
 //        t.toString();

@@ -10,11 +10,11 @@ public interface ClientInterface {
 
     void deleteCoffeeShop(String coffeeShopName);
 
-    void configureCoffeeShop(String coffeeShopName);
-
     void updateBasePrice(String coffeeShopName, double newPrice);
 
     void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName, double newPrice);
+
+    String[] getAllCoffeeShopNames();
 
     String getCoffeeShop(String coffeeShopName);
     String[] getOptionSetNames(String coffeeShopName);

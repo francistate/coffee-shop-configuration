@@ -4,21 +4,22 @@ import wrapper.CoffeeShopConfigAPI;
 
 import java.util.Properties;
 
-import static io.CoffeeShopConfigBuilder.parsePropertiesFile;
+import io.CoffeeShopConfigBuilder;
 
 public class TestClient implements ClientInterface {
     CoffeeShopConfigAPI api;
     public TestClient(){
         api = new CoffeeShopConfigAPI();
     }
+
+    // methods >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     @Override
     public void uploadPropertiesFile(String filePath) {
+        CoffeeShopConfigBuilder builder = new CoffeeShopConfigBuilder();
         System.out.println("Uploading properties file: " + filePath);
-        // Implement logic to upload a properties file
-        Properties props = parsePropertiesFile(filePath);
+
+        Properties props = builder.parsePropertiesFile(filePath);
         api.configureCoffeeShopFromProperties(props);
-
-
     }
 
     @Override
@@ -37,12 +38,6 @@ public class TestClient implements ClientInterface {
     public void deleteCoffeeShop(String coffeeShopName) {
         System.out.println("Deleting coffee shop: " + coffeeShopName);
         api.deleteCoffeeShop(coffeeShopName);
-    }
-
-    @Override
-    public void configureCoffeeShop(String coffeeShopName) {
-        System.out.println("Configuring coffee shop: " + coffeeShopName);
-
     }
 
     @Override
