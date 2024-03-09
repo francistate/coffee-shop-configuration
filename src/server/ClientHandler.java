@@ -50,9 +50,7 @@ public class ClientHandler implements Runnable {
     }
 
     private Response processRequest(Request request) {
-        // Implement request processing logic based on request type
-        // Example: Handle different types of requests and generate appropriate response
-        // Return a Response object
+
 
         return null;
     }

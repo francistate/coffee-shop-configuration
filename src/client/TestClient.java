@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import static io.CoffeeShopConfigBuilder.parsePropertiesFile;
 
-public class TestClient implements CoffeeShopClient {
+public class TestClient implements ClientInterface {
     CoffeeShopConfigAPI api;
     public TestClient(){
         api = new CoffeeShopConfigAPI();
@@ -15,7 +15,7 @@ public class TestClient implements CoffeeShopClient {
     public void uploadPropertiesFile(String filePath) {
         System.out.println("Uploading properties file: " + filePath);
         // Implement logic to upload a properties file
-        Properties props= parsePropertiesFile(filePath);
+        Properties props = parsePropertiesFile(filePath);
         api.configureCoffeeShopFromProperties(props);
 
 

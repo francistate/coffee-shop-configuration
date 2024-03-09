@@ -1,10 +1,13 @@
-package client;
+package server;
 
-public interface CoffeeShopClient {
+import java.util.Properties;
 
-    void uploadPropertiesFile(String filePath);
+public interface CoffeeShopInterface {
+
 
     void showAvailableCoffeeShops();
+
+    void configureCoffeeShopFromProperties(Properties props);
 
     void printCoffeeShop(String coffeeShopName);
 
@@ -15,7 +18,4 @@ public interface CoffeeShopClient {
     void updateBasePrice(String coffeeShopName, double newPrice);
 
     void addOptionToOptionSet(String coffeeShopName, String optionSetName, String newOptionName, double newPrice);
-
-    String getCoffeeShop(String coffeeShopName);
-    String[] getOptionSetNames(String coffeeShopName);
 }

@@ -1,22 +1,21 @@
 package protocol;
 
 import java.io.Serializable;
-import java.util.Properties;
 
 public class Request implements Serializable {
     private RequestType requestType;
-    private Properties properties;
+    private Object requestData;
 
-    public Request(RequestType requestType, Properties properties) {
+    public Request(RequestType requestType, Object requestData) {
         this.requestType = requestType;
-        this.properties = properties;
+        this.requestData = requestData;
     }
 
     public RequestType getRequestType() {
         return requestType;
     }
 
-    public Properties getProperties() {
-        return properties;
+    public Object getRequestData() {
+        return requestData;
     }
 }
