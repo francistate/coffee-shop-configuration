@@ -165,8 +165,13 @@ public class CoffeeShopServer implements CoffeeShopInterface {
                             }
                             out.writeObject(response);
                             break;
-
-
+                        case DISCONNECT:
+                            clientConnected = false;
+                            response = new Response(ResponseType.SUCCESS, null);
+                            // remove line below to keep server running after socket connection is closed
+                            running = false;
+                            System.out.println(" Connection Closed, Server  Stopped");
+                            break;
                         default:
                             errorMessage = "Invalid request type";
                             break;
@@ -193,7 +198,7 @@ public class CoffeeShopServer implements CoffeeShopInterface {
 
 
     public static void main(String[] args) {
-        new CoffeeShopServer(5000);
+        new CoffeeShopServer(5001);
     }
 
 

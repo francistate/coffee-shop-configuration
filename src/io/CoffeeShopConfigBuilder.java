@@ -97,7 +97,7 @@ public class CoffeeShopConfigBuilder {
         try (FileReader fileReader = new FileReader(filepath)) {
             properties.load(fileReader);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             System.out.println("Error reading file...reading backup file: " + backup_file);
             try (FileReader fileReader = new FileReader(backup_file)) {
                 properties.load(fileReader);

@@ -1,15 +1,18 @@
 package ui;
 
-import client.TestClient;
+import client.ClientInterface;
+import client.RealClient;
 
 import java.util.Scanner;
 
 public class CharacterBasedUI {
 
-    TestClient testClient;
+    ClientInterface client;
+
+
     public CharacterBasedUI() {
         // constructor
-        testClient = new TestClient();
+        client = new RealClient("localhost", 5001);
     }
 
     public void displayMainMenu() {
@@ -21,8 +24,9 @@ public class CharacterBasedUI {
             System.out.println("2. Show available Coffee Configurations");
             System.out.println("3. Print a Coffee Shop");
             System.out.println("4. Delete a Coffee Shop");
-            System.out.println("5. Configure a Coffee Shop");
-            System.out.println("6. Exit");
+            System.out.println("5. Update the Base Price");
+            System.out.println("6. Add an Option to an existing Option Set");
+            System.out.println("7. Exit");
 
             int userChoice;
 
@@ -32,70 +36,78 @@ public class CharacterBasedUI {
             String optionSetName;
             String newOptionName;
             // Process user choice
-            userChoice = getChoice(scanner,1, 6);
+            userChoice = getChoice(scanner,1, 7);
+            scanner.nextLine();
             switch (userChoice) {
                 case 1:
-                    System.out.print("Enter the name+extension of the properties file: ");
-                    String filePath = scanner.next();
+                    System.out.print("Enter the whole path of the properties file: ");
+                    String filePath = scanner.nextLine();
 //                    String filePath = "C:\\Users\\Tatenda\\Desktop\\config.properties";
-                    testClient.uploadPropertiesFile(filePath);
+                    client.uploadPropertiesFile(filePath);
                     System.out.println("======================================================");
                     break;
                 case 2:
-                    testClient.showAvailableCoffeeShops();
+                    System.out.println("Available Coffee Shops:");
+                    printAllCoffeeShops();
                     System.out.println("======================================================");
                     break;
                 case 3:
+                    printAllCoffeeShops();
                     System.out.print("Enter the name of the Coffee Shop: ");
-//                    coffeeShopName = scanner.next();
-                    coffeeShopName = "CoffeeShop Express";
-                    testClient.printCoffeeShop(coffeeShopName);
+                    coffeeShopName = scanner.nextLine();
+//                    coffeeShopName = "CoffeeShop Express";
+                    String coffeeShop = client.getCoffeeShop(coffeeShopName);
+                    System.out.println(coffeeShop);
                     System.out.println("======================================================");
                     break;
                 case 4:
-                    System.out.print("Enter the name of the Coffee Shop: ");
-                    coffeeShopName = "CoffeeShop Express";
-                    testClient.deleteCoffeeShop(coffeeShopName);
+                    printAllCoffeeShops();
+                    System.out.print("\nEnter the name of the Coffee Shop: ");
+//                    coffeeShopName = "CoffeeShop Express";
+                    coffeeShopName = scanner.nextLine();
+                    client.deleteCoffeeShop(coffeeShopName);
                     System.out.println("======================================================");
                     break;
 
                 case 5:
-                    System.out.println("1. Update the Base Price");
-                    System.out.println("2. Add an Option to an existing Option Set");
-                    userChoice = getChoice(scanner,1, 2);
-                    switch (userChoice) {
-                        case 1:
-                            System.out.print("Enter the name of the Coffee Shop: ");
-                            coffeeShopName = "CoffeeShop Express";
-                            System.out.print("Enter the new base price: ");
-//                            newPrice = scanner.nextDouble();
-                            newPrice = 3.5;
-                            testClient.updateBasePrice(coffeeShopName, newPrice);
-                            System.out.println("\n======================================================");
-                            break;
-                        case 2:
-                            System.out.print("Enter the name of the Coffee Shop: ");
-                            coffeeShopName = "CoffeeShop Express";
-                            System.out.print("Enter the name of the Option Set: ");
-                            optionSetName = "Size";
-                            System.out.print("Enter the name of the new Option: ");
-                            newOptionName = "Large";
-                            System.out.print("Enter the price of the new Option: ");
-//                            newPrice = scanner.nextDouble();
-                            newPrice = 2.5;
-                            testClient.addOptionToOptionSet(coffeeShopName, optionSetName, newOptionName, newPrice);
-                            System.out.println("\n======================================================");
-                            break;
 
+                    System.out.print("Enter the name of the Coffee Shop: ");
+//                            coffeeShopName = "CoffeeShop Express";
+                    coffeeShopName = scanner.nextLine();
 
-                    }
+                    System.out.print("Enter the new base price: ");
+                    newPrice = scanner.nextDouble();
+//                            newPrice = 3.5;
+                    client.updateBasePrice(coffeeShopName, newPrice);
+                    System.out.println("\n======================================================");
                     break;
-                    case 6:
+                case 6:
+                    System.out.print("Enter the name of the Coffee Shop: ");
+//                            coffeeShopName = "CoffeeShop Express";
+                    coffeeShopName = scanner.nextLine();
+                    System.out.print("Enter the name of the Option Set: ");
+//                            optionSetName = "Size";
+                    optionSetName = scanner.nextLine();
+                    System.out.print("Enter the name of the new Option: ");
+//                            newOptionName = "Large";
+                    newOptionName = scanner.nextLine();
+                    System.out.print("Enter the price of the new Option: ");
+                    newPrice = scanner.nextDouble();
+//                            newPrice = 2.5;
+                    client.addOptionToOptionSet(coffeeShopName, optionSetName, newOptionName, newPrice);
+                    System.out.println("\n======================================================");
+                    break;
+
+
+
+
+                    case 7:
                         System.out.println("Exiting...");
                         System.exit(0);
 
 //            scanner.close();
             }
+            scanner.nextLine();
         }
     }
 
@@ -116,7 +128,7 @@ public class CharacterBasedUI {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a valid number.");
-//                scanner.nextLine(); // Clear input buffer
+                scanner.nextLine(); // Clear input buffer
             }
             finally {
                 ;
@@ -125,11 +137,29 @@ public class CharacterBasedUI {
         return userChoice;
     }
 
-
-    public static void main(String[] args) {
-        CharacterBasedUI characterBasedUI = new CharacterBasedUI();
-        characterBasedUI.displayMainMenu();
+    private void printAllCoffeeShops(){
+        String[] configurations = client.getAllCoffeeShopNames();
+                        if (configurations != null && configurations.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            int i = 1;
+            for (String config : configurations) {
+                sb.append(i).append(": ").append(config).append("\n");
+                i++;
+            }
+            System.out.println(sb.toString());
+        }else{
+            System.out.println("No Coffee Shops available");
+        }
     }
+
+    public void start() {
+        displayMainMenu();
+    }
+
+//    public static void main(String[] args) {
+//        CharacterBasedUI characterBasedUI = new CharacterBasedUI();
+//        characterBasedUI.displayMainMenu();
+//    }
 }
 
 

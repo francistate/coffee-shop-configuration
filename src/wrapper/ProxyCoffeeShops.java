@@ -309,6 +309,7 @@ public abstract class ProxyCoffeeShops {
     }
 
     public synchronized String getCoffeeShop(String coffeeShopName){
+
         if (configs.containsKey(coffeeShopName)) {
             return configs.get(coffeeShopName).toString();
 

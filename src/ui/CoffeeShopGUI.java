@@ -1,5 +1,6 @@
-package gui;
+package ui;
 
+import client.ClientInterface;
 import client.RealClient;
 //import client.TestClient;
 
@@ -10,14 +11,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class CoffeeShopGUI {
-    RealClient client;
+    ClientInterface client;
     private JFrame mainFrame;
     private JPanel menuPanel;
 
     // constructor
     public CoffeeShopGUI() {
         prepareGUI();
-        client = new RealClient("localhost", 5000);
+        client = new RealClient("localhost", 5001);
 
     }
 
@@ -232,7 +233,13 @@ public class CoffeeShopGUI {
         return panel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(CoffeeShopGUI::new);
-    }
+//    public static void main(String[] args) {
+//        new CoffeeShopServer(5001);
+//        try {
+//            Thread.sleep(200); // Sleep for 2 seconds (2000 milliseconds)
+//        } catch (InterruptedException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        SwingUtilities.invokeLater(CoffeeShopGUI::new);
+//    }
 }

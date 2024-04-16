@@ -158,6 +158,7 @@ public class RealClient implements ClientInterface {
 
     @Override
     public String getCoffeeShop(String coffeeShopName) {
+
         try {
             Request request = new Request(RequestType.GET_COFFEE_SHOP, coffeeShopName);
             out.writeObject(request);
@@ -191,6 +192,21 @@ public class RealClient implements ClientInterface {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void disconnectClient(){
+        try {
+            Request request = new Request(RequestType.DISCONNECT, null);
+            out.writeObject(request);
+
+            Response response = (Response) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+
+        }finally{
+            System.out.println("Clossed Connection...");
+        }
+
     }
 
 
